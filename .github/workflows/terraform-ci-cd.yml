@@ -37,3 +37,10 @@ jobs:
     - name: Terraform Apply
       if: github.ref == 'refs/heads/main' && github.event_name == 'push'
       run: terraform apply -auto-approve tfplan
+
+    - name: Send Slack Notification
+      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+      env:
+        SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      run: |
+        curl -X POST -H 'Content-type: application/json' --data '{"text":"Deployment completed successfully."}' $SLACK_WEBHOOK_URL
