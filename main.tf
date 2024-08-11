@@ -135,7 +135,7 @@ resource "aws_s3_bucket" "ugo_bucket" {
   
   tags = {
     Name        = "MyS3Bucket"
-    Environment = "Prod"
+    Environment = "Dev"
   }
 }
 
@@ -262,4 +262,13 @@ output "ec2_instance_id" {
 
 output "ec2_instance_public_ip" {
   value = aws_instance.web.public_ip
+}
+
+terraform {
+  backend "s3" {
+    bucket         = "teeto-terraform-state-bucket"  # Your S3 bucket name
+    key            = "terraform.tfstate"  # The desired path within the bucket
+    region         = "eu-north-1"  # Your AWS region
+    encrypt        = true  # Encrypt the state file at rest in S3
+  }
 }
