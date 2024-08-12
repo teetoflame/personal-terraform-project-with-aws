@@ -135,7 +135,7 @@ resource "aws_s3_bucket" "ugo_bucket" {
   
   tags = {
     Name        = "MyS3Bucket"
-    Environment = "Dev33"
+    Environment = "Dev"
   }
 }
 
